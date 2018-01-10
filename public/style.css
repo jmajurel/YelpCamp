@@ -1,0 +1,32 @@
+.camgrounds img {
+  width: 400px;
+  max-height: auto;
+}
+
+.campgrounds {
+  text-align: center;
+}
+
+.img-thumbnail {
+  padding: 1px;
+  /*padding- */
+}
+
+h1 {
+  text-align: center;
+}
+
+html, body {
+ padding-top: 30px;
+ margin: 0;
+ height: 100%;
+}
+
+body {
+  background-image: url("/backgroundForest.jpeg");
+  background-size: cover;
+  background-repeat: norepeat;
+  color: white;
+  height: inherit;
+  font-family: 'Exo 2', sans-serif;
+}

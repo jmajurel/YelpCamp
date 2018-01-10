@@ -2,11 +2,17 @@
 
 <h1>Campgrounds</h1>
 
-<% campgrounds.forEach(function(campground){ %>
-  <div>
-    <h4><%= campground.name %></h4>
-    <img src="<%= campground.image %>">
+<div class="container campgrounds">
+  <div class="row">
+    <% campgrounds.forEach(function(campground){ %>
+      <div class="col-lg-4 col-md-6 col-12">
+	<h4><%= campground.name %></h4>
+	<img class="rounded img-thumbnail" alt="campground" src="<%= campground.image %>">
+      </div>
+    <% }); %>
   </div>
-<% }); %>
+</div>
+
+<a href="/campgrounds/new">Add New Campground</a>
 
 <% include layouts/footer %>
