@@ -9,11 +9,14 @@
 
 .img-thumbnail {
   padding: 1px;
-  /*padding- */
 }
 
-h1 {
-  text-align: center;
+.jumbotron {
+  border-radius: 12px;
+  background-image: url("/sunset.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
 }
 
 html, body {
@@ -25,8 +28,8 @@ html, body {
 body {
   background-image: url("/backgroundForest.jpeg");
   background-size: cover;
-  background-repeat: norepeat;
-  color: white;
+  background-repeat: no-repeat;
+  /*color: white;*/
   height: inherit;
-  font-family: 'Exo 2', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
