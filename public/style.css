@@ -1,26 +1,6 @@
-.camgrounds img {
-  width: 400px;
-  max-height: auto;
-}
-
-.campgrounds {
-  text-align: center;
-}
-
-.img-thumbnail {
-  padding: 1px;
-}
-
-.jumbotron {
-  border-radius: 12px;
-  background-image: url("/sunset.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: bottom;
-}
-
 html, body {
- padding-top: 30px;
+ color: white;
+ padding-top: 40px;
  margin: 0;
  height: 100%;
 }
@@ -33,3 +13,48 @@ body {
   height: inherit;
   font-family: 'Quicksand', sans-serif;
 }
+
+h1 {
+  text-align: center;
+}
+
+#campgroundViewer img {
+  width: 400px;
+  max-height: auto;
+}
+
+#campgroundViewer {
+  text-align: center;
+}
+
+.img-thumbnail {
+  padding: 1px;
+}
+
+#newCampground {
+  width: 25%;
+  margin: 40px auto;
+  text-align: center;
+}
+
+
+
+#newCampground label {
+  font-weight: bold;
+}
+
+.jumbotron {
+  color: black;
+  border-radius: 15px;
+  background-image: url("/sunset.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.8);
+}
+
+.navbar {
+  color: black;
+}
+
+

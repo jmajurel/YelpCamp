@@ -1,14 +1,22 @@
 <% include layouts/header %>
 
-<h1>Add New Campgrounds</h1>
-<div class="container">
-  <form action="/campgrounds" method="POST">
-    <input type="text" name="name" placeholder="name">
-    <input type="url" name="image" placeholder="image_url">
-    <input type="submit" value="Add">
+<div id="newCampground" class="container">
+  <h1>New Campground</h1>
+  <form action="/campgounds" method="POST">
+    <div class="form-group">
+      <label for="campgroundName">Name</label>
+      <input id="campgroundName" type="text" class="form-control" name="name" placeholder="name">
+    </div>
+    <div class="form-group">
+      <label for="campgroundSource">Image</label>
+      <input id="campgroundSource" type="url" class="form-control" name="image" placeholder="url">
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary btn-block" value="Add New Campground">
+    </div>
   </form>
+  <a href="/campgrounds">Go Back</a>
 </div>
 
-<a href="/campgrounds">Go Back</a>
 
 <% include layouts/footer %>
