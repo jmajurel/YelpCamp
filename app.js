@@ -1,18 +1,18 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+var express    = require('express'),
+    bodyParser = require('body-parser'),
+    mongoose   = require('mongoose');
+
 var app = express();
 
-var campgrounds = [
-    { name: "Praloup", image: "http://www.photosforclass.com/download/15989950903" },
-    { name: "Canigou", image: "http://www.photosforclass.com/download/1430198323" },
-    { name: "Saint Victoire", image: "http://www.photosforclass.com/download/3662521481" },
-    { name: "Praloup", image: "http://www.photosforclass.com/download/15989950903" },
-    { name: "Canigou", image: "http://www.photosforclass.com/download/1430198323" },
-    { name: "Saint Victoire", image: "http://www.photosforclass.com/download/3662521481" },
-    { name: "Praloup", image: "http://www.photosforclass.com/download/15989950903" },
-    { name: "Canigou", image: "http://www.photosforclass.com/download/1430198323" },
-    { name: "Saint Victoire", image: "http://www.photosforclass.com/download/3662521481" }
-];
+mongoose.connect('mongodb://localhost/yelpCamp', { useMongoClient: true });
+
+var campgroundSchema = mongoose.Schema(
+  {
+    name: String,
+    image: String
+  }
+);
+var Campgrounds = mongoose.model('campground', campgroundSchema);
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -27,13 +27,28 @@ app.get('/campgrounds/new', (req, res) => {
 });
 
 app.get('/campgrounds', (req, res) => {
-  res.render('campgrounds', {campgrounds: campgrounds});
+  Campgrounds.find(function(err, data) {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('campgrounds', {campgrounds: data});
+    }
+  });
 });
 
 app.post('/campgrounds', (req, res) => {
-  var newCampground = {name: req.body.name, image: req.body.image}; 
-  campgrounds.push(newCampground);
-  res.redirect('/campgrounds');
+  var newCampground = new Campgrounds({
+    name: req.body.name,
+    image: req.body.image
+  });
+
+  newCampground.save(function(err, data) {
+    if(err) {
+      console.log(err);
+    } else {
+      res.redirect('/campgrounds');
+    }
+  });
 });
 
 app.listen(3000, () => {
