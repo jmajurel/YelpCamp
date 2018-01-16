@@ -1,46 +1,37 @@
 html, body {
  color: white;
  padding-top: 40px;
- margin: 0;
  height: 100%;
 }
 
 body {
   background-image: url("/backgroundForest.jpeg");
   background-size: cover;
-  /*background-repeat: no-repeat;*/
-  /*color: white;*/
   height: inherit;
   font-family: 'Quicksand', sans-serif;
 }
 
 h1 {
   text-align: center;
+  background-color: rgba(20, 20, 20, 0.7);
 }
 
 #campgroundViewer img {
-  width: 400px;
-  max-height: auto;
+  height: 300px;
+  width: auto;
 }
 
 #campgroundViewer {
+  padding-top: 30px;
   text-align: center;
 }
 
 .img-thumbnail {
   padding: 1px;
-}
-
-#newCampground {
-  width: 25%;
-  margin: 40px auto;
-  text-align: center;
-}
-
-
-
-#newCampground label {
-  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.8);
+  border-radius: 15px;
 }
 
 .jumbotron {
@@ -51,13 +42,38 @@ h1 {
   background-size: cover;
   background-position: bottom;
   box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.8);
+  width: 80%;
+  height: 40%;
+  margin: auto;
+}
+
+.caption {
+  margin-top: 10px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+}
+
+#newCampground {
+  width: 25%;
+  margin: 40px auto;
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+#showPage img{
+  width: 50%;
+  float: left;
 }
 
 .jumbotron h1 {
   text-align: left;
+  background: none;
 }
 .navbar {
   color: black;
 }
-
 

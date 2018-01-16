@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
   res.render('landing');
 });
 
-
+//INDEX
 app.get('/campgrounds', function(req, res) {
   Campground.find(function(err, data) {
     if(err) {
@@ -50,10 +50,12 @@ app.post('/campgrounds', function(req, res) {
   });
 });
 
+//CREATE
 app.get('/campgrounds/new', (req, res) => {
   res.render('newCamp');
 });
 
+//SHOW
 app.get('/campgrounds/:id', (req, res) => {
   Campground.findById(req.params.id, function(err, foundItem){
     if(err) {

@@ -1,8 +1,9 @@
 <% include layouts/header %>
 
-<div class="container">
-  <h1><%= campground.name %></h1>
-  <img src="<%= campground.image %>" alt="campground">
+<h1><%= campground.name %></h1>
+
+<div id="showPage" class="container">
+  <img class="img-thumbnail" src="<%= campground.image %>" alt="campground">
   <p><%= campground.desc %></p>
 </div>
 
