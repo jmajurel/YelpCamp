@@ -43,7 +43,7 @@ h1 {
   background-position: bottom;
   box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.8);
   width: 80%;
-  height: 40%;
+  height: 60%;
   margin: auto;
 }
 
@@ -64,9 +64,25 @@ label {
   font-weight: bold;
 }
 
-#showPage img{
+#showPage img {
   width: 50%;
-  float: left;
+  display: inline-block;
+}
+
+#showPage p {
+  margin-left: 30px;
+  vertical-align: top;
+  display: inline-block;
+  height: 100px;
+  padding: 2%;
+  background: url("https://cdn.pixabay.com/photo/2016/08/23/20/00/trunk-1615374__340.jpg");
+  color: rgb(20, 18, 5);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#campgroundDesc {
+  height: 100px;
 }
 
 .jumbotron h1 {
