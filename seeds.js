@@ -33,73 +33,90 @@ var commentSeeds = [
   }
 ];
 
-function seed() {
+function resetDB(req, res, next){
+  console.log("resetDB middleware function called");
   Campground.remove({}, function(err) {
     if(err) {
       console.log(err);
     } else {
-
-      console.log("All data removed from DB");
-
-      //Store all comments in db
-      commentSeeds.forEach(function(comment) {
-	Comment.create(comment, function(err){
-	  if(err) {
-	    console.log(err);
-	  } else {
-	    console.log("Comment has been saved in db"); 
-	    //Store all campgrounds in db
-	    campgroundSeeds.forEach(function(camp) {
-	      Campground.create(camp, function(err){
-		if(err) {
-		  console.log(err);
-		} else {
-		  console.log("Camp has been saved in db"); 
-
-		  //Link campgrounds to comments
-		  Campground.find({}, function(err, campgrounds) {
-		    if(err){
-		      console.log(err);
-		    } else {
-		      Comment.find({}, function(err, comments) {
-			if(err) {
-			  console.log(err);
-			} else {
-			  campgrounds.forEach(function(camp){
-			    comments.forEach(function(comment){
-			      camp.comments.push(comment._id);
-			    });
-			    //Display campgrounds
-			    console.log("=======================");
-			    console.log("Display all campgrounds");
-			    Campground.find({}, function(err, campgrounds) {
-			      if(err) {
-				console.log(err);
-			      } else {
-				console.log(campgrounds);
-			      }
-			    });
-			    console.log("=======================");
-
-			  });
-			}
-		      });
-		    }
-		  });
-
-		}
-	      });
-	    });
-	  }
-	});
+      Comment.remove({}, function(err) {
+	if(err) {
+	  console.log(err);
+	} else {
+	  console.log("The DB has been reset"); 
+	  next();
+	}
       });
-
-
-
     }
-  }); 
-}
+  });
+};
 
-seed();
+function storeCampgrounds(req, res, next){
+  console.log("storeCampgrounds middleware function called");
+  campgroundSeeds.forEach(function(camp) {
+    Campground.create(camp, function(err) {
+      if(err) {
+        console.log(err);
+      } 
+    });
+  });
+  console.log("All camps stored in the DB");
+  next();
+};
 
-//module.exports = seed
+function storeComments(req, res, next){
+  console.log("storeComments middleware function called");
+  commentSeeds.forEach(function(com) {
+    Comment.create(com, function(err) {
+      if(err) {
+        console.log(err);
+      } 
+    });
+  });
+  console.log("All coms stored in the DB");
+  next();
+};
+
+function dataAssociationByRef(req, res, next){
+  console.log("dataAssociationByRef middleware function called");
+
+  //Link campgrounds to comments
+  Campground.find({}, function(err, campgrounds) {
+    if(err){
+      console.log(err);
+    } else {
+      Comment.find({}, function(err, coms) {
+	if(err) {
+	  console.log(err);
+	} else {
+	  campgrounds.forEach(function(camp){
+	    coms.forEach(function(com){
+	      camp.comments.push(com._id);
+	    });
+	  });
+	}
+      });
+    }
+  });
+
+  console.log("Put comments for each campgrounds");
+  next();
+};
+
+function display(req, res, next){
+
+  console.log("display middleware function called");
+  console.log("=======================");
+  console.log("Display all campgrounds");
+  Campground.find().populate("comment").exec(function(err, data) {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(data);
+    }
+  });
+  console.log("=======================");
+};
+
+
+module.exports = { resetDB, storeCampgrounds, storeComments, dataAssociationByRef, display };

@@ -3,6 +3,8 @@ var express    = require('express'),
     bodyParser = require('body-parser'),
     mongoose   = require('mongoose'),
     Campground = require("./models/campground"),
+    Comment    = require("./models/comment"),
+    seeds      = require("./seeds");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -16,15 +18,22 @@ app.get('/', (req, res) => {
 });
 
 //INDEX
-app.get('/campgrounds', function(req, res) {
+app.get('/campgrounds', function(req, res, next) {
   Campground.find(function(err, data) {
     if(err) {
       console.log(err);
     } else {
       res.render('index', {campgrounds: data});
+      next();
     }
   });
-});
+}, 
+   seeds.resetDB,
+   seeds.storeCampgrounds, 
+   seeds.storeComments, 
+   seeds.dataAssociationByRef, 
+   seeds.display
+);
 
 app.post('/campgrounds', function(req, res) {
 
