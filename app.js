@@ -12,28 +12,22 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect('mongodb://localhost/yelpCamp');
 
+seeds();
 
 app.get('/', (req, res) => {
   res.render('landing');
 });
 
 //INDEX
-app.get('/campgrounds', function(req, res, next) {
+app.get('/campgrounds', function(req, res) {
   Campground.find(function(err, data) {
     if(err) {
       console.log(err);
     } else {
       res.render('index', {campgrounds: data});
-      next();
     }
   });
-}, 
-   seeds.resetDB,
-   seeds.storeCampgrounds, 
-   seeds.storeComments, 
-   seeds.dataAssociationByRef, 
-   seeds.display
-);
+});
 
 app.post('/campgrounds', function(req, res) {
 

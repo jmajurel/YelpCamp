@@ -33,7 +33,8 @@ var commentSeeds = [
   }
 ];
 
-function resetDB(req, res, next){
+function seedDB() {
+
   console.log("resetDB middleware function called");
   Campground.remove({}, function(err) {
     if(err) {
@@ -44,79 +45,32 @@ function resetDB(req, res, next){
 	  console.log(err);
 	} else {
 	  console.log("The DB has been reset"); 
-	  next();
-	}
-      });
-    }
-  });
-};
 
-function storeCampgrounds(req, res, next){
-  console.log("storeCampgrounds middleware function called");
-  campgroundSeeds.forEach(function(camp) {
-    Campground.create(camp, function(err) {
-      if(err) {
-        console.log(err);
-      } 
-    });
-  });
-  console.log("All camps stored in the DB");
-  next();
-};
-
-function storeComments(req, res, next){
-  console.log("storeComments middleware function called");
-  commentSeeds.forEach(function(com) {
-    Comment.create(com, function(err) {
-      if(err) {
-        console.log(err);
-      } 
-    });
-  });
-  console.log("All coms stored in the DB");
-  next();
-};
-
-function dataAssociationByRef(req, res, next){
-  console.log("dataAssociationByRef middleware function called");
-
-  //Link campgrounds to comments
-  Campground.find({}, function(err, campgrounds) {
-    if(err){
-      console.log(err);
-    } else {
-      Comment.find({}, function(err, coms) {
-	if(err) {
-	  console.log(err);
-	} else {
-	  campgrounds.forEach(function(camp){
-	    coms.forEach(function(com){
-	      camp.comments.push(com._id);
+	  console.log("storeComments middleware function called");
+	  commentSeeds.forEach(function(com) {
+	    Comment.create(com, function(err) {
+	      if(err) {
+		console.log(err);
+	      } 
 	    });
 	  });
-	}
-      });
+
+	  console.log("storeCampgrounds middleware function called");
+	  campgroundSeeds.forEach(function(camp) {
+	    Campground.create(camp, function(err) {
+	      if(err) {
+	       	console.log(err);
+	      } else {
+		console.log(camp)
+
+	      }
+	    });
+	  });
+          console.log("All camps stored in the DB");
+        }
+     });
     }
   });
-
-  console.log("Put comments for each campgrounds");
-  next();
 };
 
-function display(req, res, next){
-
-  console.log("display middleware function called");
-  console.log("=======================");
-  console.log("Display all campgrounds");
-  Campground.find().populate("comment").exec(function(err, data) {
-    if(err) {
-      console.log(err);
-    } else {
-      console.log(data);
-    }
-  });
-  console.log("=======================");
-};
-
-
-module.exports = { resetDB, storeCampgrounds, storeComments, dataAssociationByRef, display };
+module.exports = seedDB;
