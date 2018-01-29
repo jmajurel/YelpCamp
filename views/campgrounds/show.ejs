@@ -1,0 +1,18 @@
+<% include ../layouts/header %>
+
+<h1><%= campground.name %></h1>
+
+<div id="showPage" class="container">
+  <img class="img-thumbnail" src="<%= campground.image %>" alt="campground">
+  <p><%= campground.desc %></p>
+  <ul><% campground.comments.forEach(function(com){ %>
+    <li>
+      <strong><%= com.author %></strong>
+       - <%= com.content %>
+    </li>
+  <% }); %>
+  </ul>
+  <a class="btn btn-outline-primary" href="/campgrounds/<%= campground._id %>/comments/new">Create Comment</a>
+</div>
+
+<% include ../layouts/footer %>

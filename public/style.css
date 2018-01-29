@@ -54,7 +54,7 @@ h1 {
   border-radius: 20px;
 }
 
-#newCampground {
+.yelpcamp-form {
   width: 25%;
   margin: 40px auto;
   text-align: center;
