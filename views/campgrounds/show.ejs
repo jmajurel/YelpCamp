@@ -1,10 +1,34 @@
 <% include ../layouts/header %>
 
-<h1><%= campground.name %></h1>
 
 <div id="showPage" class="container">
-  <img class="img-thumbnail" src="<%= campground.image %>" alt="campground">
-  <p><%= campground.desc %></p>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="list-group">
+	<a href="#" class="list-group-item list-group-item-action active">
+	  Info 1 
+	</a>
+	<a href="#" class="list-group-item list-group-item-action">
+	  Info 2 
+	</a>
+	<a href="#" class="list-group-item list-group-item-action">
+	  Info 3 
+	</a>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="thumbnail">
+        <img class="img-fluid" src="<%= campground.image %>" alt="campground">
+        <caption>
+          <h4 class="lead"><%= campground.name %></h4>
+          <p><%= campground.desc %></p>
+        </caption>
+      </div>
+      <div class="">
+      </div>
+    </div>
+  </div>
+
   <ul><% campground.comments.forEach(function(com){ %>
     <li>
       <strong><%= com.author %></strong>

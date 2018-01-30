@@ -64,22 +64,33 @@ app.get('/campgrounds/:id', (req, res) => {
 
 //INDEX COMMENT
 app.post('/campgrounds/:id/comments', (req, res) => {
-  Comment.create({
-    content: req.body.content,
-    author: req.body.author
-  }, function(err){
+
+  Comment.create(req.body.comment, function(err, com){
     if(err) {
       console.log(err);
-      res.redirect('/campgrounds/' + req.params.id);
     } else {
-      res.redirect('/campgrounds/' + req.params.id); 
+      Campground.findById(req.params.id, function(err, camp){
+        if(err){
+	  console.log(err);
+	} else {
+	  camp.comments.push(com._id);
+	  camp.save();
+	  res.redirect('/campgrounds/' + camp._id); 
+	}
+      });
     }
   });
 });
 
 //NEW COMMENT
 app.get('/campgrounds/:id/comments/new', (req, res) => {
-  res.render('comments/new', {req: req});
+  Campground.findById(req.params.id, function(err, camp){
+    if(err){
+      console.log(err);
+    } else {
+      res.render('comments/new', {campground: camp});
+    }
+  });
 });
 
 app.listen(3000, () => {
