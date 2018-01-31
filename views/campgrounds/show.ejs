@@ -17,26 +17,30 @@
       </div>
     </div>
     <div class="col-md-9">
-      <div class="thumbnail">
-        <img class="img-fluid" src="<%= campground.image %>" alt="campground">
-        <caption>
-          <h4 class="lead"><%= campground.name %></h4>
-          <p><%= campground.desc %></p>
-        </caption>
+      <div class="card">
+        <img class="card-img-top" src="<%= campground.image %>" alt="campground-img">
+        <div class="card-body">
+          <h4 class="card-title"><%= campground.name %></h4>
+          <strong>
+            <p class="price text-right">$9.58/night</p>
+          </strong>
+          <p class="card-text"><%= campground.desc %></p>
+        </div>
       </div>
-      <div class="">
+      <div class="card">
+	<div class="card-body">
+	  <h5 class="card-title">Comments</h5>
+	  <% campground.comments.forEach(function(com){ %>
+	    <p class="card-text"> 
+	      <strong><%= com.author %></strong>
+	      - <%= com.content %>
+	    </p>
+	  <% }); %>
+	  <a href="/campgrounds/<%= campground._id %>/comments/new" class="btn btn-primary">Create Comment</a>
+	</div>
       </div>
     </div>
   </div>
-
-  <ul><% campground.comments.forEach(function(com){ %>
-    <li>
-      <strong><%= com.author %></strong>
-       - <%= com.content %>
-    </li>
-  <% }); %>
-  </ul>
-  <a class="btn btn-outline-primary" href="/campgrounds/<%= campground._id %>/comments/new">Create Comment</a>
 </div>
 
 <% include ../layouts/footer %>

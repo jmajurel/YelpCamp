@@ -1,0 +1,13 @@
+body {
+  padding-top: 80px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.yelpcamp-form {
+  width: 25%;
+  margin: 40px auto;
+  text-align: center;
+}
