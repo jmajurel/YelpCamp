@@ -1,16 +1,32 @@
-var express     = require('express'),
-    app         = express(),
-    bodyParser  = require('body-parser'),
-    mongoose    = require('mongoose'),
-    passport    = require("passport"),
-    User        = require("./models/user"),
-    Campground  = require("./models/campground"),
-    Comment     = require("./models/comment"),
-    seedDB      = require("./newseeds")
+var express       = require('express'),
+    app           = express(),
+    bodyParser    = require('body-parser'),
+    mongoose      = require('mongoose'),
+    passport      = require("passport"),
+    localStrategy = require("passport-local"),
+    session       = require("express-session"),
+    User          = require("./models/user"),
+    Campground    = require("./models/campground"),
+    Comment       = require("./models/comment"),
+    seedDB        = require("./newseeds")
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session(
+  { 
+    secret: "yelp",
+    resave: false,
+    saveUninitialized: false
+  }
+));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 mongoose.connect('mongodb://localhost/yelpCamp');
 
@@ -91,6 +107,39 @@ app.get('/campgrounds/:id/comments/new', (req, res) => {
       console.log(err);
     } else {
       res.render('comments/new', {campground: camp});
+    }
+  });
+});
+
+app.get("/register", function(req, res) {
+  res.render("register");
+});
+
+app.post("/register", function(req, res) {
+  var newUser = { username: req.body.username };
+  User.register(newUser, req.body.password, function(err, user){
+    if(err) {
+      console.log(err);
+      res.redirect("/register");
+    } else {
+      passport.authenticate('local')(req, res, function(){
+        res.redirect("/campgrounds");
+      });
+    }
+  });  
+});
+
+app.get("/login", function(req, res) {
+  res.render("login");
+});
+
+app.post("/login", function(req, res) {
+  req.login(User, function(err){
+    if(err){
+      console.log(err);
+      res.redirect("/login")
+    } else {
+      res.redirect("/");
     }
   });
 });
