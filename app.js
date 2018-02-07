@@ -8,7 +8,8 @@ var express       = require('express'),
     User          = require("./models/user"),
     Campground    = require("./models/campground"),
     Comment       = require("./models/comment"),
-    seedDB        = require("./newseeds");
+    seedDB        = require("./newseeds"),
+    methodOverride = require('method-override');
 
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes    = require("./routes/comments"),
@@ -17,6 +18,8 @@ var campgroundRoutes = require("./routes/campgrounds"),
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
+
 app.use(session(
   { 
     secret: "yelp",

@@ -26,6 +26,7 @@
           </strong>
           <p class="card-text"><%= campground.desc %></p>
           <p class="card-text"><em>Posted by <%= campground.author.username %></em></p>
+          <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Update</a>
         </div>
       </div>
       <div class="card">
