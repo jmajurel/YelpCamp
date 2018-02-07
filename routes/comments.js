@@ -14,6 +14,12 @@ router.post('/', isLoggedIn, (req, res) => {
         if(err){
 	  console.log(err);
 	} else {
+	  console.log(req.user);
+	  com.author = {
+	    id: req.user._id, 
+	    username: req.user.username
+	  };
+	  com.save();
 	  camp.comments.push(com._id);
 	  camp.save();
 	  res.redirect('/campgrounds/' + camp._id); 
@@ -42,4 +48,5 @@ function isLoggedIn(req, res, next){
     res.redirect("/login");
   }
 };
+
 module.exports = router;

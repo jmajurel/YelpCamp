@@ -43,7 +43,7 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use(indexRoutes);
 
-seedDB();
+//seedDB();
 
 app.listen(3000, () => {
   console.log("Yelp Camp App is running on port 3000");

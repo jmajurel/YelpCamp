@@ -36,7 +36,7 @@ function seedDB() {
     if(err) {
       console.log(err);
     } else {
-      data.forEach(function(rawCamp){
+ /*     data.forEach(function(rawCamp){
 	Campground.create(rawCamp, function(err, camp){
 	  if(err){
 	    console.log(err);
@@ -57,7 +57,7 @@ function seedDB() {
 	    });
 	  } 
 	});
-      });
+      });*/
     }
   });
 };

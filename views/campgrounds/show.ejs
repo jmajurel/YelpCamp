@@ -25,6 +25,7 @@
             <p class="price text-right">$9.58/night</p>
           </strong>
           <p class="card-text"><%= campground.desc %></p>
+          <p class="card-text"><em>Posted by <%= campground.author.username %></em></p>
         </div>
       </div>
       <div class="card">
@@ -32,7 +33,7 @@
 	  <h5 class="card-title">Comments</h5>
 	  <% campground.comments.forEach(function(com){ %>
 	    <p class="card-text"> 
-	      <strong><%= com.author %></strong>
+	      <strong><%= com.author.username %></strong>
 	      - <%= com.content %>
 	    </p>
 	  <% }); %>

@@ -4,10 +4,6 @@
   <h1>New Comment to <%= campground.name %></h1>
   <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
     <div class="form-group">
-      <label for="authorSrc">Author</label>
-      <input id="authorSrc" type="text" class="form-control" name="comment[author]" placeholder="text">
-    </div>
-    <div class="form-group">
       <label for="contentSrc">Content</label>
       <input id="contentSrc" type="text" class="form-control" name="comment[content]" placeholder="text">
     </div>
