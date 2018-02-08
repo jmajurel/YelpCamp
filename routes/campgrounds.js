@@ -77,6 +77,18 @@ router.put('/:id', (req, res) => {
   });
 });
 
+//DESTROY
+router.delete('/:id', (req, res) => {
+  Campground.findByIdAndRemove(req.params.id, function(err){
+    if(err) {
+      console.log(err);
+      res.redirect("/");
+    } else {
+      res.redirect("/");
+    }
+  });
+});
+
 //middleware
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
