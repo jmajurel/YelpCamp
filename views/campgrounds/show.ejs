@@ -26,10 +26,12 @@
           </strong>
           <p class="card-text"><%= campground.desc %></p>
           <p class="card-text"><em>Posted by <%= campground.author.username %></em></p>
-          <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Update</a>
-          <form id="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-            <input type="submit" class="btn btn-danger" value="Delete">
-          </form>
+          <% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
+	    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Update</a>
+	    <form id="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+	      <input type="submit" class="btn btn-danger" value="Delete">
+	    </form>
+          <% }; %>
         </div>
       </div>
       <div class="card">
