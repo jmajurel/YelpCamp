@@ -12,6 +12,6 @@ h1 {
   text-align: center;
 }
 
-#delete-form {
+.delete-form {
   display: inline;
 }
