@@ -1,5 +1,7 @@
 var express = require("express");
 var Campground = require("../models/campground");
+var middleware = require("../middleware");
+
 var router = express.Router();
 
 //INDEX
@@ -14,7 +16,7 @@ router.get('/', function(req, res) {
 });
 
 //CREATE
-router.post('/', isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
 
   var newCampground = new Campground({
     name: req.body.name,
@@ -30,7 +32,9 @@ router.post('/', isLoggedIn, function(req, res) {
 
   newCampground.save(function(err) {
     if(err) {
+      req.flash("error", "Something went wrong");
       console.log(err);
+      res.redirect('/campgrounds');
     } else {
       res.redirect('/campgrounds');
     }
@@ -38,7 +42,7 @@ router.post('/', isLoggedIn, function(req, res) {
 });
 
 //NEW
-router.get('/new', isLoggedIn, (req, res) => {
+router.get('/new', middleware.isLoggedIn, (req, res) => {
   res.render('campgrounds/new');
 });
 
@@ -54,7 +58,7 @@ router.get('/:id', (req, res) => {
 });
 
 //EDIT
-router.get('/:id/edit', isLoggedIn, checkOwnership, (req, res) => {
+router.get('/:id/edit', middleware.isLoggedIn, middleware.checkCampOwnership, (req, res) => {
   Campground.findById(req.params.id, function(err, foundItem){
     if(err){
       console.log(err);
@@ -66,7 +70,7 @@ router.get('/:id/edit', isLoggedIn, checkOwnership, (req, res) => {
 });
 
 //UPDATE
-router.put('/:id', isLoggedIn, checkOwnership, (req, res) => {
+router.put('/:id', middleware.isLoggedIn, middleware.checkCampOwnership, (req, res) => {
   Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err) {
     if(err){
       console.log(err);
@@ -78,7 +82,7 @@ router.put('/:id', isLoggedIn, checkOwnership, (req, res) => {
 });
 
 //DESTROY
-router.delete('/:id', isLoggedIn, checkOwnership, (req, res) => {
+router.delete('/:id', middleware.isLoggedIn, middleware.checkCampOwnership, (req, res) => {
   Campground.findByIdAndRemove(req.params.id, function(err){
     if(err) {
       console.log(err);
@@ -88,30 +92,5 @@ router.delete('/:id', isLoggedIn, checkOwnership, (req, res) => {
     }
   });
 });
-
-//middleware
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    next();
-  } else {
-    res.redirect("/login");
-  }
-};
-
-//Middleware for Authorization 
-function checkOwnership(req, res, next) {
-  Campground.findById(req.params.id, function(err, foundItem){
-    if(err){
-      console.log(err);
-      res.redirect("back");
-    } else {
-      if(foundItem.author.id.equals(req.user._id)){
-	next();
-      } else {
-	res.redirect("back");
-      }
-    }
-  });
-}
 
 module.exports = router;

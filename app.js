@@ -9,7 +9,8 @@ var express       = require('express'),
     Campground    = require("./models/campground"),
     Comment       = require("./models/comment"),
     seedDB        = require("./newseeds"),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    flash          = require("connect-flash");
 
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes    = require("./routes/comments"),
@@ -27,6 +28,7 @@ app.use(session(
     saveUninitialized: false
   }
 ));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -37,6 +39,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
   next();
 });
 
