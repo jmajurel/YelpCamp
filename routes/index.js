@@ -6,7 +6,7 @@ var router  = express.Router();
 
 //Root route
 router.get('/', (req, res) => {
-  res.render('home');
+  res.render('landing');
 });
 
 //Sign-in route
