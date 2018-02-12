@@ -9,11 +9,11 @@ var router  = express.Router({mergeParams: true});
 router.post('/', middleware.isLoggedIn, (req, res) => {
 
   Comment.create(req.body.comment, function(err, com){
-    if(err) {
+    if(err || !com) {
       console.log(err);
     } else {
       Campground.findById(req.params.id, function(err, camp){
-        if(err){
+        if(err || !camp){
 	  console.log(err);
 	} else {
 	  console.log(req.user);
@@ -34,7 +34,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
 //NEW
 router.get('/new', middleware.isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, function(err, camp){
-    if(err){
+    if(err || !camp){
       console.log(err);
     } else {
       res.render('comments/new', {campground: camp});
@@ -45,7 +45,7 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 //EDIT
 router.get('/:comment_id/edit', middleware.isLoggedIn, middleware.checkComOwnership, function(req, res) {
   Comment.findById(req.params.comment_id, function(err, com) {
-    if(err){
+    if(err || !com){
       console.log(err);
       res.redirect("back");
     } else {

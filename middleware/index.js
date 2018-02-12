@@ -15,7 +15,7 @@ middlewarePackage.isLoggedIn = function(req, res, next){
 //Middleware for Authorization 
 middlewarePackage.checkCampOwnership = function(req, res, next) {
   Campground.findById(req.params.id, function(err, foundItem){
-    if(err){
+    if(err || !foundItem){
       console.log(err);
       req.flash("error", "Cannot find Campground in the Database");
       res.redirect("back");
@@ -33,7 +33,7 @@ middlewarePackage.checkCampOwnership = function(req, res, next) {
 //Middleware for Authorization 
 middlewarePackage.checkComOwnership = function(req, res, next) {
   Comment.findById(req.params.comment_id, function(err, foundItem){
-    if(err){
+    if(err || !foundItem){
       console.log(err);
       req.flash("error", "Cannot find Campground in the Database");
       res.redirect("back");
