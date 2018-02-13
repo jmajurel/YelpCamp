@@ -20,6 +20,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 
   var newCampground = new Campground({
     name: req.body.name,
+    price: req.body.price,
     image: req.body.image,
     desc: req.body.description
   });

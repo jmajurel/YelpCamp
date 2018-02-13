@@ -22,7 +22,7 @@
         <div class="card-body">
           <h4 class="card-title"><%= campground.name %></h4>
           <strong>
-            <p class="price text-right">$9.58/night</p>
+            <p class="price text-right">$<%= campground.price %>/night</p>
           </strong>
           <p class="card-text"><%= campground.desc %></p>
           <p class="card-text"><em>Posted by <%= campground.author.username %></em></p>
