@@ -1,7 +1,7 @@
 var express = require("express");
 var Campground = require("../models/campground");
 var middleware = require("../middleware");
-
+var geocoder = require('geocoder');
 var router = express.Router();
 
 //INDEX
@@ -30,16 +30,27 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
     username: req.user.username
   };
   newCampground.author = CampgroundAuthor;
-
-  newCampground.save(function(err) {
-    if(err) {
-      req.flash("error", "Something went wrong");
-      console.log(err);
-      res.redirect('/campgrounds');
+  geocoder.geocode(req.body.location, function(err, data){
+    if(err || !data.results){
+      req.flash("error", "Cannot find Campground location");
+      res.direct("back");
     } else {
-      res.redirect('/campgrounds');
+
+      newCampground.location = data.results[0].formatted_address;
+      newCampground.lat = data.results[0].geometry.location.lat;
+      newCampground.lng = data.results[0].geometry.location.lng;
+      newCampground.save(function(err) {
+	if(err) {
+	  req.flash("error", "Something went wrong");
+	  console.log(err);
+	  res.redirect('/campgrounds');
+	} else {
+	  res.redirect('/campgrounds');
+	}
+      });
     }
   });
+
 });
 
 //NEW
@@ -72,12 +83,23 @@ router.get('/:id/edit', middleware.isLoggedIn, middleware.checkCampOwnership, (r
 
 //UPDATE
 router.put('/:id', middleware.isLoggedIn, middleware.checkCampOwnership, (req, res) => {
-  Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err) {
-    if(err){
-      console.log(err);
+  geocoder.geocode(req.body.campground.location, function(err, geoData){
+    if(err || !geoData.results[0]) {
+      req.flash("error", "Cannot find Campground location");
       res.redirect("back");
     } else {
-      res.redirect("/campgrounds/" + req.params.id);
+      Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, camp) {
+	if(err){
+	  console.log(err);
+	  res.redirect("back");
+	} else {
+          camp.location = geoData.results[0].formatted_address;
+	  camp.lat = geoData.results[0].geometry.location.lat;
+	  camp.lng = geoData.results[0].geometry.location.lng;
+	  camp.save();
+	  res.redirect("/campgrounds/" + req.params.id);
+	}
+      });
     }
   });
 });
@@ -87,9 +109,9 @@ router.delete('/:id', middleware.isLoggedIn, middleware.checkCampOwnership, (req
   Campground.findByIdAndRemove(req.params.id, function(err){
     if(err) {
       console.log(err);
-      res.redirect("/");
+      res.redirect("/campgrounds");
     } else {
-      res.redirect("/");
+      res.redirect("/campgrounds");
     }
   });
 });

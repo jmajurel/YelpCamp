@@ -15,3 +15,9 @@ h1 {
 .delete-form {
   display: inline;
 }
+
+#map {
+  margin-top: 5px;
+  height: 400px;
+  width: 100%;
+}

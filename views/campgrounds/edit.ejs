@@ -8,6 +8,10 @@
       <input id="campNameEditForm" type="text" class="form-control" name="campground[name]" value="<%= campground.name %>">
     </div>
     <div class="form-group">
+      <label for="campLocEditForm">Location</label>
+      <input id="campLocEditForm" type="string" class="form-control" name="campground[location]" value="<%= campground.location %>">
+    </div>
+    <div class="form-group">
       <label for="campPriceEditForm">Price</label>
       <input id="campPriceEditForm" type="number" min="0.01" step="0.1" class="form-control" name="campground[price]" value="<%= campground.price %>">
     </div>
