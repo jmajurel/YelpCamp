@@ -31,7 +31,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
   };
   newCampground.author = CampgroundAuthor;
   geocoder.geocode(req.body.location, function(err, data){
-    if(err || !data.results){
+    if(err || !data.results[0]){
       req.flash("error", "Cannot find Campground location");
       res.direct("back");
     } else {
