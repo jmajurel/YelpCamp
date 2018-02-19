@@ -37,10 +37,10 @@ router.get("/login", function(req, res) {
 });
 
 //Login route
-router.post("/login", passport.authenticate('local', { 
-    successRedirect: '/campgrounds', 
-    failureRedirect: '/login'
- }));
+router.post("/login", passport.authenticate('local', { failureRedirect: '/login'}), function(req, res){
+  req.flash("success", "Hi " + req.user.username + " welcome back!");
+  res.redirect("/campgrounds");
+});
 
 //logout route
 router.get("/logout", function(req, res){

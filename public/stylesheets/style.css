@@ -13,13 +13,17 @@ h1 {
 }
 
 .yelpcamp-userform {
-  width: 30%;
   margin: 40px auto;
+  padding: auto 20%;
   text-align: center;
 }
 
 .delete-form {
   display: inline;
+}
+
+.alert {
+  text-align: center;
 }
 
 #map {
