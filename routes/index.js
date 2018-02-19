@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 //Sign-in route
 router.get("/register", function(req, res) {
-  res.render("register");
+  res.render("register", { page: "register" });
 });
 
 //Sign-in route
@@ -19,9 +19,9 @@ router.post("/register", function(req, res) {
   var newUser = { username: req.body.username };
   User.register(newUser, req.body.password, function(err, user){
     if(err || !user) {
-      req.flash("error", err.message);
       console.log(err);
-      res.redirect("/register");
+      req.flash("error", err.message);
+      res.redirect("back");
     } else {
       passport.authenticate('local')(req, res, function(){
         req.flash("success", "Welcome to YelpCamp " + user.username);
@@ -33,7 +33,7 @@ router.post("/register", function(req, res) {
 
 //Login route
 router.get("/login", function(req, res) {
-  res.render("login");
+  res.render("login", { page: "login" });
 });
 
 //Login route

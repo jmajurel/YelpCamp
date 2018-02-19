@@ -1,34 +1,35 @@
 <% include ../layouts/header %>
 
-<div class="container yelpcamp-form">
-  <h1>Update Campground</h1>
-  <form action='/campgrounds/<%= campground._id %>?_method=PUT' method="POST">
-    <div class="form-group">
-      <label for="campNameEditForm">Name</label>
-      <input id="campNameEditForm" type="text" class="form-control" name="campground[name]" value="<%= campground.name %>">
-    </div>
-    <div class="form-group">
-      <label for="campLocEditForm">Location</label>
-      <input id="campLocEditForm" type="string" class="form-control" name="campground[location]" value="<%= campground.location %>">
-    </div>
-    <div class="form-group">
-      <label for="campPriceEditForm">Price</label>
-      <input id="campPriceEditForm" type="number" min="0.01" step="0.1" class="form-control" name="campground[price]" value="<%= campground.price %>">
-    </div>
-    <div class="form-group">
-      <label for="campImgEditForm">Image</label>
-      <input id="campImgEditForm" type="url" class="form-control" name="campground[image]" value="<%= campground.image %>">
-    </div>
-    <div class="form-group">
-      <label for="CampdescEditForm">Description</label>
-      <textarea id="CampdescEditForm" class="form-control" name="campground[desc]" rows="4"><%= campground.desc %></textarea>
-    </div>
-    <div class="form-group">
-      <input type="submit" class="btn btn-primary btn-block" value="Update">
-    </div>
-  </form>
-  <a href="/campgrounds/<%= campground._id %>">Go Back</a>
+<div class="row">
+  <div class="yelpcamp-form">
+    <h1>Update Campground</h1>
+    <form action='/campgrounds/<%= campground._id %>?_method=PUT' method="POST">
+      <div class="form-group">
+        <label for="campNameEditForm">Name</label>
+        <input id="campNameEditForm" type="text" class="form-control" name="campground[name]" value="<%= campground.name %>">
+      </div>
+      <div class="form-group">
+        <label for="campLocEditForm">Location</label>
+        <input id="campLocEditForm" type="string" class="form-control" name="campground[location]" value="<%= campground.location %>">
+      </div>
+      <div class="form-group">
+        <label for="campPriceEditForm">Price</label>
+        <input id="campPriceEditForm" type="number" min="0.01" step="0.1" class="form-control" name="campground[price]" value="<%= campground.price %>">
+      </div>
+      <div class="form-group">
+        <label for="campImgEditForm">Image</label>
+        <input id="campImgEditForm" type="url" class="form-control" name="campground[image]" value="<%= campground.image %>">
+      </div>
+      <div class="form-group">
+        <label for="CampdescEditForm">Description</label>
+        <textarea id="CampdescEditForm" class="form-control" name="campground[desc]" rows="4"><%= campground.desc %></textarea>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary btn-block" value="Update">
+      </div>
+    </form>
+    <a href="/campgrounds/<%= campground._id %>">Go Back</a>
+  </div>
 </div>
-
 
 <% include ../layouts/footer %>

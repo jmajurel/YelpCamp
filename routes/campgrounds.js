@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
     if(err || !data) {
       console.log(err);
     } else {
-      res.render('campgrounds/index', {campgrounds: data});
+      res.render('campgrounds/index', {campgrounds: data, page: "campgrounds"});
     }
   });
 });
@@ -33,7 +33,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
   geocoder.geocode(req.body.location, function(err, data){
     if(err || !data.results[0]){
       req.flash("error", "Cannot find Campground location");
-      res.direct("back");
+      res.redirect("back");
     } else {
 
       newCampground.location = data.results[0].formatted_address;
@@ -55,7 +55,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 
 //NEW
 router.get('/new', middleware.isLoggedIn, (req, res) => {
-  res.render('campgrounds/new');
+  res.render('campgrounds/new', { page: "campgrounds" });
 });
 
 //SHOW
@@ -64,7 +64,7 @@ router.get('/:id', (req, res) => {
     if(err || !foundItem) {
       console.log(err);
     } else {
-      res.render('campgrounds/show', {campground: foundItem});
+      res.render('campgrounds/show', { campground: foundItem, page: "campgrounds" });
     }
   });
 });
@@ -76,7 +76,7 @@ router.get('/:id/edit', middleware.isLoggedIn, middleware.checkCampOwnership, (r
       console.log(err);
       res.redirect("back");
     } else {
-      res.render('campgrounds/edit', {campground: foundItem}); 
+      res.render('campgrounds/edit', { campground: foundItem, page: "campgrounds" }); 
     }
   });
 });

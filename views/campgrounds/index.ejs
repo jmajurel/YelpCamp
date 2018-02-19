@@ -1,6 +1,6 @@
 <% include ../layouts/header %>
 
-<div id="campgroundViewer" class="container">
+<div id="campgroundViewer">
   <div class="row">
     <% campgrounds.forEach(function(campground){ %>
       <div class="col-lg-4 col-md-6 col-12">
@@ -17,7 +17,8 @@
     <% }); %>
   </div>
 </div>
-<div id="campgrounds-idx-cr" class="container">
+
+<div id="campgrounds-idx-cr">
   <a class="btn btn-success" href="/campgrounds/new">Add New Campground</a>
 </div>
 
