@@ -27,3 +27,9 @@ h1 {
   height: 400px;
   width: 100%;
 }
+
+#campgrounds-idx-cr {
+  text-align: center;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
