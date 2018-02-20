@@ -2,6 +2,8 @@ var express = require("express");
 var Campground = require("../models/campground");
 var middleware = require("../middleware");
 var geocoder = require('geocoder');
+var sanitizer = require('sanitizer');
+
 var router = express.Router();
 
 //INDEX
@@ -22,7 +24,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
     name: req.body.name,
     price: req.body.price,
     image: req.body.image,
-    desc: req.body.description
+    desc: sanitizer.sanitize(req.body.description)
   });
 
   var CampgroundAuthor = {
@@ -83,13 +85,14 @@ router.get('/:id/edit', middleware.isLoggedIn, middleware.checkCampOwnership, (r
 
 //UPDATE
 router.put('/:id', middleware.isLoggedIn, middleware.checkCampOwnership, (req, res) => {
+
+  req.body.campground.desc = sanitizer.sanitize(req.body.campground.desc);
   geocoder.geocode(req.body.campground.location, function(err, geoData){
     if(err || !geoData.results[0]) {
       req.flash("error", "Cannot find Campground location");
       res.redirect("back");
     } else {
-      var updatedCamp = req.body.campground;
-      Campground.findByIdAndUpdate(req.params.id, updatedCamp, function(err, camp) {
+      Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, camp) {
 	if(err){
 	  console.log(err);
 	  res.redirect("back");

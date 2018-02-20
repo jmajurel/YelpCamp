@@ -2,12 +2,14 @@ var express = require("express");
 var Comment = require("../models/comment");
 var Campground = require("../models/campground");
 var middleware = require("../middleware");
+var sanitizer = require("sanitizer");
 
 var router  = express.Router({mergeParams: true});
 
 //CREATE 
 router.post('/', middleware.isLoggedIn, (req, res) => {
 
+  req.body.comment.content = sanitizer.sanitize(req.body.comment.content);
   Comment.create(req.body.comment, function(err, com){
     if(err || !com) {
       console.log(err);
@@ -57,6 +59,7 @@ router.get('/:comment_id/edit', middleware.isLoggedIn, middleware.checkComOwners
 //UPDATE
 router.put('/:comment_id', middleware.isLoggedIn, middleware.checkComOwnership, function(req, res) {
 
+  req.body.comment.content = sanitizer.sanitize(req.body.comment.content);
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, com){
     if(err){
       console.log(err);

@@ -24,7 +24,7 @@
             <%= campground.name %>
           </span>
           <span class="price float-right"><strong>$<%= campground.price %>/night</strong></span>
-          <p class="card-text"><%= campground.desc %></p>
+          <p class="card-text"><%- campground.desc %></p>
           <p class="card-text">
             <small class="text-muted">Posted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></small>
           </p>
@@ -43,7 +43,7 @@
 	    <p class="card-text"> 
 	      <strong><%= com.author.username %></strong>
               <span class="float-right"><%= moment(com.createdAt).fromNow() %></span>
-	      - <%= com.content %>
+	      - <%- com.content %>
 	    </p>
 	    <% if(currentUser && com.author.id.equals(currentUser._id)){ %>
 	      <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= com._id %>/edit">Update</a>
