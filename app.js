@@ -32,6 +32,8 @@ app.use(session(
   }
 ));
 app.use(flash());
+app.locals.moment = require("moment");
+
 app.use(passport.initialize());
 app.use(passport.session());
 

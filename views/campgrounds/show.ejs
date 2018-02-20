@@ -20,12 +20,14 @@
       <div class="card">
         <img class="card-img-top" src="<%= campground.image %>" alt="campground-img">
         <div class="card-body">
-          <h4 class="card-title"><%= campground.name %></h4>
-          <strong>
-            <p class="price text-right">$<%= campground.price %>/night</p>
-          </strong>
+          <span class="h4 card-title">
+            <%= campground.name %>
+          </span>
+          <span class="price float-right"><strong>$<%= campground.price %>/night</strong></span>
           <p class="card-text"><%= campground.desc %></p>
-          <p class="card-text"><em>Posted by <%= campground.author.username %></em></p>
+          <p class="card-text">
+            <em>Posted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
+          </p>
           <% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
 	    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Update</a>
 	    <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
@@ -40,6 +42,7 @@
 	  <% campground.comments.forEach(function(com){ %>
 	    <p class="card-text"> 
 	      <strong><%= com.author.username %></strong>
+              <span class="float-right"><%= moment(com.createdAt).fromNow() %></span>
 	      - <%= com.content %>
 	    </p>
 	    <% if(currentUser && com.author.id.equals(currentUser._id)){ %>
@@ -49,7 +52,7 @@
 	      </form>
             <% }; %>
 	  <% }); %>
-          <div>
+          <div class="bt-create-com">
 	    <a href="/campgrounds/<%= campground._id %>/comments/new" class="btn btn-success">Create Comment</a>
           </div>
 	</div>

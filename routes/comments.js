@@ -56,11 +56,14 @@ router.get('/:comment_id/edit', middleware.isLoggedIn, middleware.checkComOwners
 
 //UPDATE
 router.put('/:comment_id', middleware.isLoggedIn, middleware.checkComOwnership, function(req, res) {
-  Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err){
+
+  Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, com){
     if(err){
       console.log(err);
       res.redirect("/campgrounds/" +req.params.id);
     } else {
+      com.createdAt = new Date;
+      com.save();
       res.redirect("/campgrounds/" +req.params.id);
     }
   });

@@ -88,11 +88,13 @@ router.put('/:id', middleware.isLoggedIn, middleware.checkCampOwnership, (req, r
       req.flash("error", "Cannot find Campground location");
       res.redirect("back");
     } else {
-      Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, camp) {
+      var updatedCamp = req.body.campground;
+      Campground.findByIdAndUpdate(req.params.id, updatedCamp, function(err, camp) {
 	if(err){
 	  console.log(err);
 	  res.redirect("back");
 	} else {
+	  camp.createdAt = new Date;
           camp.location = geoData.results[0].formatted_address;
 	  camp.lat = geoData.results[0].geometry.location.lat;
 	  camp.lng = geoData.results[0].geometry.location.lng;
