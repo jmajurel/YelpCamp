@@ -8,12 +8,13 @@ h1 {
 
 .yelpcamp-form {
   margin: 40px auto;
-  width: 50%; text-align: center;
+  width: 70%; 
+  text-align: center;
 }
 
 .yelpcamp-userform {
   margin: 40px auto;
-  width: 30%;
+  /*width: 30%;*/
   text-align: center;
 }
 
@@ -27,6 +28,7 @@ h1 {
 
 #map {
   margin-top: 5px;
+  margin-bottom: 5px;
   height: 400px;
   width: 100%;
 }
