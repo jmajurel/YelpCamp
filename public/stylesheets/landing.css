@@ -79,3 +79,8 @@ body {
   margin-top: 10px;
   text-align: center;
 }
+
+.btn {
+  outline: 0;
+  box-shadow: none !important;
+}

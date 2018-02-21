@@ -42,3 +42,8 @@ h1 {
 .bt-create-com{
   margin-top: 25px;
 }
+
+.btn {
+  outline: 0;
+  box-shadow: none !important;
+}
