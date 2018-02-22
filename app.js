@@ -14,7 +14,8 @@ var express       = require('express'),
 
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes    = require("./routes/comments"),
-    indexRoutes      = require("./routes/index");
+    indexRoutes      = require("./routes/index"),
+    userRoutes       = require("./routes/users");
 
 const port = process.env.PORT || 4000;
 const databaseURL = process.env.DATABASEURL || "mongodb://localhost/yelpCamp";
@@ -53,6 +54,7 @@ mongoose.connect(databaseURL);
 
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/users", userRoutes);
 app.use(indexRoutes);
 
 //seedDB();

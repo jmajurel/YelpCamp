@@ -26,7 +26,13 @@
           <span class="price float-right"><strong>$<%= campground.price %>/night</strong></span>
           <p class="card-text"><%- campground.desc %></p>
           <p class="card-text">
-            <small class="text-muted">Posted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></small>
+            <small class="text-muted">
+              Posted by 
+              <a href="/users/<%= campground.author.id %>">
+                <%= campground.author.username %>
+              </a>
+              , <%= moment(campground.createdAt).fromNow() %>
+            </small>
           </p>
           <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 	    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Update</a>
@@ -41,7 +47,11 @@
 	  <h5 class="card-title">Comments</h5>
 	  <% campground.comments.forEach(function(com){ %>
 	    <p class="card-text"> 
-	      <strong><%= com.author.username %></strong>
+	      <strong>
+                <a href="/users/<%= com.author.id %>">
+                  <%= com.author.username %>
+                </a>
+              </strong>
               <span class="float-right"><%= moment(com.createdAt).fromNow() %></span>
 	      - <%- com.content %>
 	    </p>
