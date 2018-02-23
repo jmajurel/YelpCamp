@@ -4,10 +4,10 @@ var mongoose              = require("mongoose"),
 var userSchema = new mongoose.Schema({
   username: String,
   password: String,
-  firstName: String,
-  email: String,
-  lastName: String,
-  avatar: String,
+  firstName: { type: String, default: ""},
+  email: { type: String, default: ""},
+  lastName: { type: String, default: ""},
+  avatar: { type: String, default: "https://image.flaticon.com/icons/svg/138/138662.svg" },
   isAdmin: { type: Boolean, default: false }
 });
 
