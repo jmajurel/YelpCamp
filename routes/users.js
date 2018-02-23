@@ -107,7 +107,8 @@ function deleteUserRefCamp(req, res, next) {
       res.redirect("/");
     } else {
       camps.forEach(function(camp){
-	camp.author = false;
+	camp.author = null; 
+        camp.save();
       });
       console.log("removed references to this author in the campgrounds");
       next();
@@ -124,7 +125,8 @@ function deleteUserRefCom(req, res, next) {
       res.redirect("/");
     } else {
       coms.forEach(function(com){
-	com.author = false;
+	com.author = null;
+        com.save();
       });
       console.log("removed references to this author in the comments");
       next();

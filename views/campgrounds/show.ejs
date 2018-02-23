@@ -28,13 +28,9 @@
           <p class="card-text">
             <small class="text-muted">
               Posted by 
-              <% if(campground.author){ %>
 		<a href="/users/<%= campground.author.id %>">
 		  <%= campground.author.username %>
 		</a>
-              <% }else { %>
-                <span>Unknown Author</span>
-              <% }; %>
               , <%= moment(campground.createdAt).fromNow() %>
             </small>
           </p>
@@ -52,13 +48,10 @@
 	  <% campground.comments.forEach(function(com){ %>
 	    <p class="card-text"> 
 	      <strong>
-              <% if(com.author){ %>
                 <a href="/users/<%= com.author.id %>">
                   <%= com.author.username %>
                 </a>
-              <% } else { %>
                 <span>Unknown Author</span>
-              <% }; %>
               </strong>
               <span class="float-right"><%= moment(com.createdAt).fromNow() %></span>
 	      - <%- com.content %>

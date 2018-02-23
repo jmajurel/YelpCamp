@@ -19,7 +19,7 @@
         <% if(currentUser && currentUser._id.equals(user._id) || currentUser && currentUser.isAdmin) { %>
 	  <a href="/users/<%= user._id %>/edit" class="btn btn-warning">Edit Profile</a>
           <form class="delete-form" action="/users/<%= user._id %>?_method=DELETE" method="POST">
-	    <input type="submit" value="Remove Profile" class="btn btn-danger">
+	    <input type="submit" value="Remove Account" class="btn btn-danger">
           </form>
         <% }; %>
       </div>

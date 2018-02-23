@@ -52,7 +52,6 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
       });
     }
   });
-
 });
 
 //NEW
