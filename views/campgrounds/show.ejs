@@ -28,13 +28,17 @@
           <p class="card-text">
             <small class="text-muted">
               Posted by 
-              <a href="/users/<%= campground.author.id %>">
-                <%= campground.author.username %>
-              </a>
+              <% if(campground.author){ %>
+		<a href="/users/<%= campground.author.id %>">
+		  <%= campground.author.username %>
+		</a>
+              <% }else { %>
+                <span>Unknown Author</span>
+              <% }; %>
               , <%= moment(campground.createdAt).fromNow() %>
             </small>
           </p>
-          <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+          <% if(currentUser && campground.author && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 	    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Update</a>
 	    <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
 	      <input type="submit" class="btn btn-danger" value="Delete">
@@ -48,14 +52,18 @@
 	  <% campground.comments.forEach(function(com){ %>
 	    <p class="card-text"> 
 	      <strong>
+              <% if(com.author){ %>
                 <a href="/users/<%= com.author.id %>">
                   <%= com.author.username %>
                 </a>
+              <% } else { %>
+                <span>Unknown Author</span>
+              <% }; %>
               </strong>
               <span class="float-right"><%= moment(com.createdAt).fromNow() %></span>
 	      - <%- com.content %>
 	    </p>
-	    <% if(currentUser && com.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+	    <% if(currentUser && com.author && com.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 	      <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= com._id %>/edit">Update</a>
 	      <form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= com._id %>?_method=DELETE" method="POST">
 		<input type="submit" class="btn btn-sm btn-danger" value="Delete">
@@ -98,6 +106,7 @@
     });
   }
 </script>
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSZGwR3rltGtpO8ICZHxDNfqpDYIGN6A&callback=initMap"></script>
 
 <% include ../layouts/footer %>

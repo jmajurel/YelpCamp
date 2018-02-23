@@ -30,7 +30,7 @@
 	<ul class="navbar-nav">
           <% if(!currentUser) { %>
             <li class="nav-item">
-              <a class="nav-link <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>" href="/register">Sign In</a>
+              <a class="nav-link <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>" href="/users">Sign In</a>
             </li>
             <li class="nav-item">
               <a class="nav-link <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>" href="/login">Login</a>

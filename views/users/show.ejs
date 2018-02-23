@@ -16,6 +16,12 @@
         <p class="card-text">
 	  Tart jelly dessert jelly-o jelly beans halvah. Chupa chups cheesecake chocolate bar donut marzipan danish. Biscuit candy canes caramels. Jujubes oat cake jelly sweet sesame snaps marshmallow cheesecake fruitcake. Tiramisu candy canes cupcake toffee. Chupa chups wafer gummies toffee cupcake fruitcake biscuit biscuit cookie. Brownie pastry sweet roll cookie carrot cake wafer carrot cake liquorice. Jelly beans chupa chups apple pie jelly-o dragée candy sesame snaps. Caramels caramels marshmallow ice cream toffee cupcake. Caramels topping bear claw. Icing chocolate pudding cake gummi bears oat cake sweet jelly marshmallow. Marzipan cookie pie tiramisu cookie topping wafer. Carrot cake caramels pudding jujubes pastry lollipop dessert.
         </p>
+        <% if(currentUser && currentUser._id.equals(user._id) || currentUser && currentUser.isAdmin) { %>
+	  <a href="/users/<%= user._id %>/edit" class="btn btn-warning">Edit Profile</a>
+          <form class="delete-form" action="/users/<%= user._id %>?_method=DELETE" method="POST">
+	    <input type="submit" value="Remove Profile" class="btn btn-danger">
+          </form>
+        <% }; %>
       </div>
     </div>
   </div>

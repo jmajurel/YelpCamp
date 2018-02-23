@@ -48,4 +48,12 @@ middlewarePackage.checkComOwnership = function(req, res, next) {
   });
 }
 
+middlewarePackage.checkuserprofileownership = function(req, res, next) {
+  if(req.user && req.user._id.equals(req.params.id) || req.user && req.user.isAdmin){
+    next();
+  } else {
+    res.redirect("/users/" +req.params.id);
+  }  
+}
+
 module.exports = middlewarePackage;
