@@ -27,14 +27,18 @@
           <p class="card-text"><%- campground.desc %></p>
           <p class="card-text">
             <small class="text-muted">
-              Posted by 
+              Posted 
+              <% if(campground.author.username) { %>
+                By
 		<a href="/users/<%= campground.author.id %>">
 		  <%= campground.author.username %>
 		</a>
-              , <%= moment(campground.createdAt).fromNow() %>
+                ,
+              <% }; %>
+               <%= moment(campground.createdAt).fromNow() %>
             </small>
           </p>
-          <% if(currentUser && campground.author && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+          <% if(currentUser && campground.author.id && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 	    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Update</a>
 	    <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
 	      <input type="submit" class="btn btn-danger" value="Delete">
@@ -47,16 +51,17 @@
 	  <h5 class="card-title">Comments</h5>
 	  <% campground.comments.forEach(function(com){ %>
 	    <p class="card-text"> 
-	      <strong>
-                <a href="/users/<%= com.author.id %>">
-                  <%= com.author.username %>
-                </a>
-                <span>Unknown Author</span>
-              </strong>
+              <% if(com.author.username) { %>
+                <strong>
+                  <a href="/users/<%= com.author.id %>">
+                    <%= com.author.username %>
+                  </a>
+                </strong>
+              <% }; %>
               <span class="float-right"><%= moment(com.createdAt).fromNow() %></span>
 	      - <%- com.content %>
 	    </p>
-	    <% if(currentUser && com.author && com.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+	    <% if(currentUser && com.author.id && com.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 	      <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= com._id %>/edit">Update</a>
 	      <form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= com._id %>?_method=DELETE" method="POST">
 		<input type="submit" class="btn btn-sm btn-danger" value="Delete">

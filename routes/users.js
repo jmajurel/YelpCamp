@@ -18,17 +18,12 @@ router.post("/", function(req, res) {
 
   var newUser = {
     username: req.body.username,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email
   };
 
-  if(req.body.avatar) {
-    newUser.avatar = req.body.avatar;
-  } 
   if(req.body.adminCode && adminCode === req.body.adminCode) {
     newUser.isAdmin = true;
   }
+
   User.register(newUser, req.body.password, function(err, user){
     if(err || !user) {
       console.log(err);
@@ -83,10 +78,12 @@ router.put("/:id", middleware.checkuserprofileownership, function(req, res) {
       req.flash("error", "Something went wrong");
       res.redirect("/users/"+ req.params.id);
     } else {
-      usr.firstName = req.body.updatedUser.firstName;
-      usr.lastName = req.body.updatedUser.lastName;
-      usr.email = req.body.updatedUser.email;
-      usr.avatar = req.body.updatedUser.avatar;
+      usr.firstName = req.body.firstName;
+      usr.lastName = req.body.lastName;
+      usr.email = req.body.email;
+      if(req.body.avatar) {
+        usr.avatar = req.body.avatar;
+      }
       usr.save(function(err){
 	if(err) {
           req.flash("error", "Something went wrong");
@@ -100,16 +97,15 @@ router.put("/:id", middleware.checkuserprofileownership, function(req, res) {
 
 function deleteUserRefCamp(req, res, next) {
 
-  Campground.find().where('author.id').equals(req.params.id).exec(function(err, camps){
+  Campground.find()
+  .where('author.id')
+  .equals(req.params.id)
+  .updateMany({ author: {} })
+  .exec(function(err){
     if(err) {
-      console.log(err);
       req.flash("error", "Something went wrong");
       res.redirect("/");
     } else {
-      camps.forEach(function(camp){
-	camp.author = null; 
-        camp.save();
-      });
       console.log("removed references to this author in the campgrounds");
       next();
     }
@@ -118,21 +114,21 @@ function deleteUserRefCamp(req, res, next) {
 
 function deleteUserRefCom(req, res, next) {
 
-  Comment.find().where('author.id').equals(req.params.id).exec(function(err, coms){
+  Comment.find()
+  .where('author.id')
+  .equals(req.params.id)
+  .updateMany({ author: {} })
+  .exec(function(err){
     if(err) {
-      console.log(err);
       req.flash("error", "Something went wrong");
       res.redirect("/");
     } else {
-      coms.forEach(function(com){
-	com.author = null;
-        com.save();
-      });
-      console.log("removed references to this author in the comments");
+      console.log("removed references to this author in the campgrounds");
       next();
     }
   });
 }
+
 //DESTROY ROUTE
 router.delete("/:id", 
     middleware.checkuserprofileownership, 

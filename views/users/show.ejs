@@ -7,12 +7,21 @@
       <div class="card-body">
         <p class="card-text">
           <small class="text-muted">
-            <a href="mailto:<%= user.email %>">
-              <%= user.email %>
-            </a>
+            <% if(user.email){ %>
+              <a href="mailto:<%= user.email %>">
+                <%= user.email %>
+              </a>
+            <% }; %>
           </small>
         </p>
-        <h5 class="card-title"><%= user.firstName %>, <%= user.lastName %></h5>
+        <h5 class="card-title">
+          <% if(user.firstName) { %>
+            <%= user.firstName %>, 
+          <% }; %>
+          <% if(user.lastName) { %>
+            <%= user.lastName %>
+          <% }; %>
+        </h5>
         <p class="card-text">
 	  Tart jelly dessert jelly-o jelly beans halvah. Chupa chups cheesecake chocolate bar donut marzipan danish. Biscuit candy canes caramels. Jujubes oat cake jelly sweet sesame snaps marshmallow cheesecake fruitcake. Tiramisu candy canes cupcake toffee. Chupa chups wafer gummies toffee cupcake fruitcake biscuit biscuit cookie. Brownie pastry sweet roll cookie carrot cake wafer carrot cake liquorice. Jelly beans chupa chups apple pie jelly-o dragée candy sesame snaps. Caramels caramels marshmallow ice cream toffee cupcake. Caramels topping bear claw. Icing chocolate pudding cake gummi bears oat cake sweet jelly marshmallow. Marzipan cookie pie tiramisu cookie topping wafer. Carrot cake caramels pudding jujubes pastry lollipop dessert.
         </p>

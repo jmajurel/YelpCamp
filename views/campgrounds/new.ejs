@@ -6,26 +6,24 @@
     <form action="/campgrounds" method="POST">
       <div class="form-group">
         <label for="campNameNewForm">Name</label>
-        <input id="campNameNewForm" type="text" class="form-control" name="name" placeholder="text">
-      </div>
-      <div class="form-group">
-        <label for="campLocNewForm">Location</label>
-        <input id="campLocNewForm" type="text" class="form-control" name="location" placeholder="Montpellier, France">
-      </div>
-      <div class="form-group">
-        <label for="campPriceNewForm">Price</label>
-        <input id="campPriceNewForm" type="number" min="0.01" step="0.1" class="form-control" name="price" placeholder="price">
+        <input id="campNameNewForm" type="text" class="form-control" name="name" required placeholder="text">
       </div>
       <div class="form-group">
         <label for="campImgNewForm">Image</label>
-        <input id="campImgNewForm" type="url" class="form-control" name="image" placeholder="url">
+        <input id="campImgNewForm" type="url" class="form-control" name="image" required placeholder="url">
       </div>
-
+      <div class="form-group">
+        <label for="campLocNewForm">Location</label>
+        <input id="campLocNewForm" type="text" class="form-control" name="location" required placeholder="Montpellier, France">
+      </div>
+      <div class="form-group">
+        <label for="campPriceNewForm">Price</label>
+        <input id="campPriceNewForm" type="number" min="0" step="0.1" class="form-control" required name="price" placeholder="price">
+      </div>
       <div class="form-group">
         <label for="campdescNewForm">Description</label>
         <textarea id="campdescNewForm" class="form-control" name="description" placeholder="text" rows="4"></textarea>
       </div>
-
       <div class="form-group">
         <input type="submit" class="btn btn-success btn-block" value="Add New Campground">
       </div>
