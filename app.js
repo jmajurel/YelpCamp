@@ -1,16 +1,17 @@
-var express       = require('express'),
-    app           = express(),
-    bodyParser    = require('body-parser'),
-    mongoose      = require('mongoose'),
-    passport      = require("passport"),
-    localStrategy = require("passport-local"),
-    session       = require("express-session"),
-    User          = require("./models/user"),
-    Campground    = require("./models/campground"),
-    Comment       = require("./models/comment"),
-    seedDB        = require("./newseeds"),
+var express        = require('express'),
+    app            = express(),
+    bodyParser     = require('body-parser'),
+    mongoose       = require('mongoose'),
+    passport       = require("passport"),
+    localStrategy  = require("passport-local"),
+    session        = require("express-session"),
+    User           = require("./models/user"),
+    Campground     = require("./models/campground"),
+    Comment        = require("./models/comment"),
+    seedDB         = require("./newseeds"),
     methodOverride = require('method-override'),
-    flash          = require("connect-flash");
+    flash          = require("connect-flash"),
+    faker          = require("faker");
 
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes    = require("./routes/comments"),
@@ -47,6 +48,7 @@ app.use(function(req, res, next){
   res.locals.currentUser = req.user;
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");
+  //res.locals.faker = faker;
   next();
 });
 

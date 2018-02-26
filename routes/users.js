@@ -16,9 +16,9 @@ router.get("/", function(req, res) {
 //CREATE ROUTE
 router.post("/", function(req, res) {
 
-  var newUser = {
-    username: req.body.username,
-  };
+  var newUser = {};
+  newUser.username = req.body.username;
+  newUser.email    = req.body.email;
 
   if(req.body.adminCode && adminCode === req.body.adminCode) {
     newUser.isAdmin = true;
@@ -146,5 +146,6 @@ router.delete("/:id",
 	}
       });
 });
+
 
 module.exports = router;

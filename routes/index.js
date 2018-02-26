@@ -28,4 +28,20 @@ router.get("/logout", function(req, res){
   res.redirect("/");
 });
 
+//FORGOT PASSWORD
+router.get("/forgot", function(req, res) {
+  res.render("forgot");
+});
+
+//FORGOT PASSWORD
+router.post("/forgot", function(req, res) {
+  User.findOne({email: req.body.email}, function(err, usr) {
+    if(err) {
+      req.flash("error", "Cannot find this email address")
+      res.redirect("back");
+    } else {
+      res.redirect("back");
+    }
+  });
+});
 module.exports = router;
