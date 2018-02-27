@@ -101,33 +101,42 @@ router.post("/forgot", function(req, res) {
 });
 
 router.get("/reset/:token", function(req, res) {
-    User.findOne({ token :req.params.token, resetPasswordExpires: { $gt: Date.now() }}, function(err, usr){
-      if(err) {
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() }}, function(err, usr){
+      if(err || !usr) {
         req.flash("error", "Something went wrong");
         res.redirect("/campgrounds");
       } else {
-        res.render("reset", { user: usr });
+        res.render("reset", { user: usr, token: req.params.token});
       }
     });
 });
 
 router.post("/reset/:token", function(req, res) {
-  if(req.body.newPassword !== req.body.confirm) {
+  if(req.body.newPassword !== req.body.confPassword) {
     req.flash("error", "New password doesn't match with the confirmation");
     res.redirect("back");
   } else {
-    User.findOneAndUpdate({ token: req.params.token }, 
-    { 
-      password: req.body.newPassword,
-      resetPasswordToken : undefined,
-      resetPasswordExpires : undefined
+    User.findOne({ 
+      resetPasswordToken: req.params.token, 
+      resetPasswordExpires: { $gt: Date.now() }
     }, function(err, usr){
-      if(err) {
+      if(err || !usr) {
         req.flash("error", "Something went wrong");
         res.redirect("back");
       } else {
-        req.flash("success", "Password has been changed");
-        res.redirect("/campgrounds"); 
+        usr.setPassword(req.body.newPassword, function() {
+          usr.resetPasswordToken = undefined;
+          usr.resetPasswordExpires = undefined;
+          usr.save(function(err){
+            if(err) {
+              req.flash("error", "Cannot save new password");
+              res.redirect("/campgrounds");
+            } else {
+              req.flash("success", "Password has been updated");
+              res.redirect("/campgrounds"); 
+            }
+          });
+        });
       }
     });
   }
