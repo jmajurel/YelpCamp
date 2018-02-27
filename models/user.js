@@ -4,6 +4,8 @@ var mongoose              = require("mongoose"),
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true},
   password: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
   email: { type: String, unique: true },
   firstName: { type: String, default: ""},
   lastName: { type: String, default: ""},
