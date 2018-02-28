@@ -20,7 +20,7 @@ middlewarePackage.checkCampOwnership = function(req, res, next) {
       req.flash("error", "Cannot find Campground in the Database");
       res.redirect("back");
     } else {
-      if(foundItem.author.id.equals(req.user._id) || req.user.isAdmin){
+      if(req.user && req.user.isAdmin || foundItem.author && foundItem.author.id.equals(req.user._id)){
 	next();
       } else {
         req.flash("error", "Permission denied");
@@ -38,7 +38,7 @@ middlewarePackage.checkComOwnership = function(req, res, next) {
       req.flash("error", "Cannot find Campground in the Database");
       res.redirect("back");
     } else {
-      if(foundItem.author.id.equals(req.user._id) || req.user.isAdmin){
+      if(req.user && req.user.isAdmin || foundItem.author && foundItem.author.id.equals(req.user._id) ){
 	next();
       } else {
         req.flash("error", "Permission denied");
@@ -49,7 +49,7 @@ middlewarePackage.checkComOwnership = function(req, res, next) {
 }
 
 middlewarePackage.checkuserprofileownership = function(req, res, next) {
-  if(req.user && req.user._id.equals(req.params.id) || req.user && req.user.isAdmin){
+  if( req.user && req.user.isAdmin || req.user && req.user._id.equals(req.params.id) ){
     next();
   } else {
     res.redirect("/users/" +req.params.id);
