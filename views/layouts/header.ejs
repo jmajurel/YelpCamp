@@ -38,7 +38,7 @@
           <% } else { %>
             <li class="nav-item">
 	      <span class="navbar-text">Logged in as: 
-                <a style="display: inline" class="nav-link" href="/users/<%= currentUser._id %>"><%= currentUser.username %></a>
+                <a id="navbar-usrname" class="nav-link" href="/users/<%= currentUser._id %>"><%= currentUser.username %></a>
                 <% if(currentUser && currentUser.isAdmin){ %>
                    (admin)
                 <% }; %>

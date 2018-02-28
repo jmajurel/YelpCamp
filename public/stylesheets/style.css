@@ -48,3 +48,7 @@ h1 {
   box-shadow: none !important;
 }
 
+#navbar-usrname {
+  display: inline;
+  padding: 0;
+}
