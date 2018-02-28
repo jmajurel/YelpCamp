@@ -27,8 +27,8 @@ router.post("/", function(req, res) {
   User.register(newUser, req.body.password, function(err, user){
     if(err || !user) {
       console.log(err);
-      req.flash("error", err.message);
-      res.redirect("/campgrounds");
+      req.flash("error", "Cannot create user account");
+      res.redirect("back");
     } else {
       passport.authenticate('local')(req, res, function(){
         req.flash("success", "Welcome to YelpCamp " + user.username);
@@ -61,7 +61,7 @@ router.get("/:id", function(req, res) {
 //EDIT ROUTE
 router.get("/:id/edit", middleware.checkuserprofileownership, function(req, res) {
   User.findById(req.params.id, function(err, foundUser){
-    if(err) {
+    if(err || !foundUser) {
       req.flash("error", "cannot find this user");
       res.redirect("/campgrounds");
     } else {
@@ -74,7 +74,7 @@ router.get("/:id/edit", middleware.checkuserprofileownership, function(req, res)
 router.put("/:id", middleware.checkuserprofileownership, function(req, res) {
 
   User.findById(req.params.id, function(err, usr){
-    if(err) {
+    if(err || !usr) {
       req.flash("error", "Something went wrong");
       res.redirect("/users/"+ req.params.id);
     } else {

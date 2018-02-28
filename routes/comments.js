@@ -61,7 +61,7 @@ router.put('/:comment_id', middleware.isLoggedIn, middleware.checkComOwnership, 
 
   req.body.comment.content = sanitizer.sanitize(req.body.comment.content);
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, com){
-    if(err){
+    if(err || !com){
       console.log(err);
       res.redirect("/campgrounds/" +req.params.id);
     } else {

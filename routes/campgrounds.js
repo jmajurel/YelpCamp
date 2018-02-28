@@ -92,7 +92,7 @@ router.put('/:id', middleware.isLoggedIn, middleware.checkCampOwnership, (req, r
       res.redirect("back");
     } else {
       Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, camp) {
-	if(err){
+	if(err || !camp){
 	  console.log(err);
 	  res.redirect("back");
 	} else {
