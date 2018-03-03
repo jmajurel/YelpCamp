@@ -52,3 +52,7 @@ h1 {
   display: inline;
   padding: 0;
 }
+
+#campgroundViewer .card {
+  margin-bottom: 10px;
+}
